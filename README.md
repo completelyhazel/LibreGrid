@@ -1,4 +1,10 @@
-# <div align="center">LibreGrid </div>
+<div align="center">
+
+<img align="center" src="./Assets/LibreGrid_Logo.png" width=100 height=100></img>
+
+# LibreGrid 
+
+</div>
   
 LibreGrid is an open-source grid placement solution for Roblox. It deals with all the math headaches for you and it is very intuitive and lightweight. 
 
