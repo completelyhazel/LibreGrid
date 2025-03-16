@@ -13,11 +13,13 @@ I have been developing my world-building game [Wubby](https://www.roblox.com/gam
 
 LibreGrid emulates surface-based placement (like the one that Roblox Studio offers), getting rid of all the math-related headaches that would take coding it yourself. Moreover, it allows for more customizations that developers can modify in real time to their liking. This means that, using LibreGrid, you can achieve a block-placing system (like Minecraft's), or a furniture placement system (2D placement), or a Roblox Studio-like experience. 
 
-This module is the result of months, if not years, of trial and error whilst developing Wubby.
+This module results from months, if not years, of trial and error whilst developing Wubby.
 
 ## Features
 - **Very lightweight:** 0 shapecasts, ~100 lines, everything thought to be as fast as possible.
 - **Super intuitive:** Every function is well-documented, every type is specified, and the module only has three functions.
 - **Customizable:** Allows for many grid-based systems to be created, ranging from 2D to 3D.
-- **100% open-source and free to use:** No attribution required or anything.
+- **Automatically align blocks to tilted surfaces**
+- **Allows for reference rotations**
+- **100% open-source and free to use:** No attribution required.
 - **Strictly typed** to avoid any type errors.
