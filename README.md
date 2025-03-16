@@ -1,6 +1,6 @@
 <div align="center">
 
-<img align="center" src="./Assets/LibreGrid_Logo.png" width=100 height=100></img>
+<img align="center" src="./LibreGrid_Logo.png" width=100 height=100></img>
 
 # LibreGrid 
 
