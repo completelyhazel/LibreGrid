@@ -9,13 +9,16 @@ Optional set of parameters used to configure how you want LibreGrid to behave:
 - **WhitelistedNormals** - `({Vector3})` If specified, LibreGrid will return nil if raycasting hits a normal that isn't specified here.
 
 ### GetCFrameFromRay
-- **Parameters:** Ray `(Ray)`, Reference `(BasePart or Model)`, GridSize `(number)`, Rotation `(optional CFrame)`, Configuration `(optional LibreGridConfiguration)`
+- **Parameters:** Ray `(Ray)`, Reference `(BasePart or Model)`, GridSize `(number)`, Rotation `(optional CFrame)`, Configuration `(optional LibreGridConfiguration)` <br>
+
 Using a custom ray `Ray`, returns a `CFrame` rotated using `Rotation` that is aligned to the grid.
 
 ### GetCFrameAtMousePosition
-- **Parameters:** Reference `(BasePart or Model)`, GridSize `(number)`, Rotation `(optional CFrame)`, Configuration `(optional LibreGridConfiguration)`
+- **Parameters:** Reference `(BasePart or Model)`, GridSize `(number)`, Rotation `(optional CFrame)`, Configuration `(optional LibreGridConfiguration)` <br>
+
 Using a ray that shoots from the camera to the player mouse's position, returns a `CFrame` rotated using `Rotation` that is aligned to the grid.
 
 ### RoundCFrame
-- **Parameters:** CFrame `CFrame`, GridSize `(number)`
+- **Parameters:** CFrame `CFrame`, GridSize `(number)` <br>
+
 Returns a copy of `CFrame` whose translation is rounded to `GridSize` 
