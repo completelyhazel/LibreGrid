@@ -25,4 +25,4 @@ This module results from months, if not years, of trial and error whilst develop
 - **Strictly typed** to avoid any type errors.
 
 ## Documentation
-Click [here]() to check out the documentation.
+Click [here](./usage.md) to check out the documentation.
