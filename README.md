@@ -23,3 +23,6 @@ This module results from months, if not years, of trial and error whilst develop
 - **Allows for reference rotations**
 - **100% open-source and free to use:** No attribution required.
 - **Strictly typed** to avoid any type errors.
+
+## Documentation
+Click [here]() to check out the documentation.
