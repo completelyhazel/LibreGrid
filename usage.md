@@ -6,7 +6,7 @@ LibreGrid has two main functions: `GetCFrameAtMousePosition` and `GetCFrameFromR
 ### LibreGridConfiguration
 An optional set of parameters used to configure how you want LibreGrid to behave:
 - **RaycastParams** - `(RaycastParams)` Configures which parts will be detected. By default, this will ignore the Reference and the player's character. More info: [RaycastParams](https://create.roblox.com/docs/reference/engine/datatypes/RaycastParams)
-- **ForceAlignedOutput** - `(bool)` Forces LibreGrid to output a result whose numbers are multiples of the grid size. LibreGrid may occasionally return non-rounded results for a better user experience. It is recommended to turn this off unless you know what you're doing.
+- **ForceAlignedOutput** - `(bool)` Forces LibreGrid to output a result whose numbers are multiples of the grid size. LibreGrid may occasionally return non-rounded results for a better user experience when this is off. It is recommended to turn this off unless you know what you're doing.
 - **AllowFaceAlignment** - `(bool)` Set this to `false` if you don't want LibreGrid to rotate parts on tilted surfaces depending on the rotation of their surface.
 - **WhitelistedNormals** - `({Vector3})` If specified, LibreGrid will return nil if raycasting hits a normal that isn't specified here.
 - **NormalBased** - `(bool)` If `true`, will base calculations on the normal instead of the position the ray hit.
