@@ -24,8 +24,8 @@ This module results from months, if not years, of trial and error while developi
 <br>
 
 - **Automatically align blocks to tilted surfaces**
-- **Allows for custom rotations**
-- **Allows for *ANY* grid size, even for those with decimals.**
+- **Allows custom rotations**
+- **Allows *ANY* grid size, even those with decimals.**
 <br>
 
 - **100% open-source and free to use:** No attribution required but it'd be greatly appreciated! :3
