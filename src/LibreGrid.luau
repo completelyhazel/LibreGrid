@@ -1,7 +1,7 @@
 --!strict
 
 --[[
-	LibreGrid V.1.0.0
+	LibreGrid V.1.0.4
 	Made by @completely_hazel
 ]]
 
@@ -52,13 +52,11 @@ local function Main(Raycast: RaycastResult, Reference: BasePart | Model, GridSiz
 	
 	local NormalOffset = Normal * (RelativeSize / 2) -- Calculate how much the reference has to be offset to be on the surface	
 	local GridAlignmentOffset = Vector3.new(
-		CalculateOffset(RelativeSize.X, GridSize * if NormalOffset.X == 0 and not IsNormalBased then 1 else 0),
-		CalculateOffset(RelativeSize.Y, GridSize * if NormalOffset.Y == 0 and not IsNormalBased then 1 else 0),
-		CalculateOffset(RelativeSize.Z, GridSize * if NormalOffset.Z == 0 and not IsNormalBased then 1 else 0)
-	)
-	
-	print(NormalOffset, GridAlignmentOffset)
-				
+		CalculateOffset(RelativeSize.X, GridSize * if NormalOffset.X == 0 then 1 else 0),
+		CalculateOffset(RelativeSize.Y, GridSize * if NormalOffset.Y == 0 then 1 else 0),
+		CalculateOffset(RelativeSize.Z, GridSize * if NormalOffset.Z == 0 then 1 else 0)
+	) * if IsNormalBased then 0 else 1
+					
 	return (if Configuration.ForceAlignedOutput then LibreGrid:RoundCFrame(Combination * CFrame.new(GridAlignmentOffset) + NormalOffset, GridSize)
 		else LibreGrid:RoundCFrame(Combination, GridSize) + GridAlignmentOffset + NormalOffset), Raycast
 end
@@ -72,36 +70,35 @@ local function CreateDefaultParams(Reference: Instance)
 	return Params
 end
 
--- Returns a CFrame using a custom ray. Note that this will return nil if there is no hit.
-function LibreGrid:GetCFrameFromRay(Ray: Ray, Reference: BasePart | Model, GridSize: number,
-	Rotation: CFrame?, Configuration: Types.LibreGridConfiguration?): (CFrame?, RaycastResult?)
+-- Main ray function
+local function RayMain(Ray: Ray, Reference: BasePart | Model, GridSize: number,
+	Rotation: CFrame?, Configuration: Types.LibreGridConfiguration?)
 	
 	Configuration = Configuration or {}
 	Rotation = Rotation or CFrame.identity
 	
 	local Raycast = workspace:Raycast(Ray.Origin, Ray.Direction,
 		(Configuration :: Types.LibreGridConfiguration).RaycastParams or CreateDefaultParams(Reference))
-	
+
 	if not Raycast then return end
 	
 	return Main(Raycast, Reference, GridSize, Rotation :: CFrame, Configuration :: Types.LibreGridConfiguration)
+end
+
+-- Returns a CFrame using a custom ray. Note that this will return nil if there is no hit.
+function LibreGrid:GetCFrameFromRay(Ray: Ray, Reference: BasePart | Model, GridSize: number,
+	Rotation: CFrame?, Configuration: Types.LibreGridConfiguration?): (CFrame?, RaycastResult?)
+	
+	return RayMain(Ray, Reference, GridSize, Rotation, Configuration)
 end
 
 -- Returns a CFrame using the player's current mouse position. Note that this will return nil if there is no hit.
 function LibreGrid:GetCFrameAtMousePosition(Reference: BasePart | Model, GridSize: number,
 	Rotation: CFrame?, Configuration: Types.LibreGridConfiguration?): (CFrame?, RaycastResult?)
 	
-	Configuration = Configuration or {}
-	Rotation = Rotation or CFrame.identity
-	
-	local Ray = Mouse.UnitRay
+	local MouseRay = Mouse.UnitRay
 
-	local Raycast = workspace:Raycast(Ray.Origin, Ray.Direction * 15_000,
-		(Configuration :: Types.LibreGridConfiguration).RaycastParams or CreateDefaultParams(Reference))
-
-	if not Raycast then return end
-
-	return Main(Raycast, Reference, GridSize, Rotation :: CFrame, Configuration :: Types.LibreGridConfiguration)
+	return RayMain(Ray.new(MouseRay.Origin, MouseRay.Direction * 15_000), Reference, GridSize, Rotation :: CFrame, Configuration :: Types.LibreGridConfiguration)
 end
 
 -- Rounds a CFrame's position to the grid
