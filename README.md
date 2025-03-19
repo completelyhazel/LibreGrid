@@ -32,4 +32,4 @@ This module results from months, if not years, of trial and error while developi
 - **Strictly typed** to avoid any type errors.
 
 ## Usage
-Click [here](./usage.md) to check the documentation. You can also click [here](./uses) to check how to do different grid systems using this module.
+Click [here](./usage.md) to check the documentation. You can also click [here](./uses.md) to check how to do different grid systems using this module.
