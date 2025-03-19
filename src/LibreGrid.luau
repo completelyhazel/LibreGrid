@@ -31,24 +31,34 @@ local function Main(Raycast: RaycastResult, Reference: BasePart | Model, GridSiz
 	
 	local Size = if Reference:IsA("BasePart") then Reference.Size else Reference:GetExtentsSize()	
 	local Normal = Raycast.Normal
+	local RaycastPosition = Raycast.Position
+	local HitInstance = Raycast.Instance
 	
 	if Configuration.WhitelistedNormals and not table.find(Configuration.WhitelistedNormals, Normal) then return end -- Deal with whitelisted normals
 	
 	local IsAbs = not IsAnyAbs1(Normal)
-	local Position = if IsAbs and Configuration.AllowFaceAlignment ~= false then CFrame.lookAlong(Raycast.Position, Normal)
-		else CFrame.new(Raycast.Position)
+	local IsNormalBased = Configuration.NormalBased
+	
+	if IsNormalBased == true and HitInstance:IsA("BasePart") then
+		RaycastPosition = HitInstance.Position + (Normal * (Size/2)) -- Modify the position so it's based on the normal instead
+	end
+	
+	local Position = if IsAbs and Configuration.AllowFaceAlignment ~= false then CFrame.lookAlong(RaycastPosition, Normal)
+		else CFrame.new(RaycastPosition)
 	
 	local Combination = Position * if IsAbs then Rotation:Inverse() else Rotation -- Mix the position and rotation together
 	
-	local RelativeSize = Combination:VectorToWorldSpace(Size):Abs()
+	local RelativeSize = Combination:VectorToObjectSpace(Size):Abs()
 	
 	local NormalOffset = Normal * (RelativeSize / 2) -- Calculate how much the reference has to be offset to be on the surface	
 	local GridAlignmentOffset = Vector3.new(
-		CalculateOffset(RelativeSize.X, GridSize * if NormalOffset.X == 0 then 1 else 0),
-		CalculateOffset(RelativeSize.Y, GridSize * if NormalOffset.Y == 0 then 1 else 0),
-		CalculateOffset(RelativeSize.Z, GridSize * if NormalOffset.Z == 0 then 1 else 0)
+		CalculateOffset(RelativeSize.X, GridSize * if NormalOffset.X == 0 and not IsNormalBased then 1 else 0),
+		CalculateOffset(RelativeSize.Y, GridSize * if NormalOffset.Y == 0 and not IsNormalBased then 1 else 0),
+		CalculateOffset(RelativeSize.Z, GridSize * if NormalOffset.Z == 0 and not IsNormalBased then 1 else 0)
 	)
-			
+	
+	print(NormalOffset, GridAlignmentOffset)
+				
 	return (if Configuration.ForceAlignedOutput then LibreGrid:RoundCFrame(Combination * CFrame.new(GridAlignmentOffset) + NormalOffset, GridSize)
 		else LibreGrid:RoundCFrame(Combination, GridSize) + GridAlignmentOffset + NormalOffset), Raycast
 end
