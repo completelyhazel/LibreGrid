@@ -1,7 +1,7 @@
 --!strict
 
 --[[
-	LibreGrid V.1.0.4
+	LibreGrid V.1.0.5
 	Made by @completely_hazel
 ]]
 
@@ -57,7 +57,7 @@ local function Main(Raycast: RaycastResult, Reference: BasePart | Model, GridSiz
 		CalculateOffset(RelativeSize.Z, GridSize * if NormalOffset.Z == 0 then 1 else 0)
 	) * if IsNormalBased then 0 else 1
 					
-	return (if Configuration.ForceAlignedOutput then LibreGrid:RoundCFrame(Combination * CFrame.new(GridAlignmentOffset) + NormalOffset, GridSize)
+	return (if Configuration.ForceAlignedOutput then LibreGrid:RoundCFrame(Combination + GridAlignmentOffset + NormalOffset, GridSize)
 		else LibreGrid:RoundCFrame(Combination, GridSize) + GridAlignmentOffset + NormalOffset), Raycast
 end
 
