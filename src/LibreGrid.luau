@@ -1,7 +1,7 @@
 --!strict
 
 --[[
-	LibreGrid V.1.0.5
+	LibreGrid V.1.1.0
 	Made by @completely_hazel
 ]]
 
@@ -57,8 +57,8 @@ local function Main(Raycast: RaycastResult, Reference: BasePart | Model, GridSiz
 		CalculateOffset(RelativeSize.Z, GridSize * if NormalOffset.Z == 0 then 1 else 0)
 	) * if IsNormalBased then 0 else 1
 					
-	return (if Configuration.ForceAlignedOutput then LibreGrid:RoundCFrame(Combination + GridAlignmentOffset + NormalOffset, GridSize)
-		else LibreGrid:RoundCFrame(Combination, GridSize) + GridAlignmentOffset + NormalOffset), Raycast
+	return (if Configuration.ForceAlignedOutput then LibreGrid:RoundCFrame(Combination + GridAlignmentOffset + NormalOffset, GridSize, Configuration.RoundingMethod)
+		else LibreGrid:RoundCFrame(Combination, GridSize, Configuration.RoundingMethod) + GridAlignmentOffset + NormalOffset), Raycast
 end
 
 -- Creates a default set of raycast params to avoid the reference and the character from being detected.
@@ -102,14 +102,16 @@ function LibreGrid:GetCFrameAtMousePosition(Reference: BasePart | Model, GridSiz
 end
 
 -- Rounds a CFrame's position to the grid
-function LibreGrid:RoundCFrame(NewCFrame: CFrame, GridSize: number): CFrame
+function LibreGrid:RoundCFrame(NewCFrame: CFrame, GridSize: number, RoundingFunction: Types.RoundingFunction?): CFrame
 	if GridSize <= 0 then return NewCFrame end -- Avoid NaN
 	local Position = NewCFrame.Position
+	
+	RoundingFunction = RoundingFunction or math.round
 
 	return NewCFrame.Rotation + Vector3.new(
-		math.round(Position.X/GridSize)*GridSize,
-		math.round(Position.Y/GridSize)*GridSize,
-		math.round(Position.Z/GridSize)*GridSize
+		(RoundingFunction :: Types.RoundingFunction)(Position.X/GridSize)*GridSize,
+		(RoundingFunction :: Types.RoundingFunction)(Position.Y/GridSize)*GridSize,
+		(RoundingFunction :: Types.RoundingFunction)(Position.Z/GridSize)*GridSize
 	)
 end
 
